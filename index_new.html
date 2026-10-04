@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="pa">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Spanish Learning</title>
+<style>
+body{font-family:Arial;background:#f0f3ff;padding:15px;color:#202b55}
+header{background:#3549c9;color:white;padding:18px;text-align:center;border-radius:14px}
+.card{background:white;padding:15px;margin:14px 0;border-radius:12px}
+button{background:#3549c9;color:white;border:0;padding:12px;margin:4px;border-radius:8px}
+input{padding:10px;width:90px}
+.grid{display:grid;grid-template-columns:repeat(5,1fr)}
+.big{font-size:25px;color:#3549c9}
+</style>
+</head>
+<body>
+<header>
+<h1>🇪🇸 Spanish ਸਿੱਖੋ</h1>
+<p>Punjabi • English • Hindi • Urdu</p>
+</header>
+
+<div class="card">
+<h2>🔤 Spanish ABC</h2>
+<div class="grid" id="abc"></div>
+<button onclick="speak('Abecedario español')">🔊 ABC ਸੁਣੋ</button>
+</div>
+
+<div class="card">
+<h2>🔢 ਗਿਣਤੀ 1–1000</h2>
+<input id="num" type="number" min="1" max="1000" value="1">
+<button onclick="showNum()">ਦਿਖਾਓ</button>
+<p class="big" id="answer">uno</p>
+<button onclick="speak(document.getElementById('answer').textContent)">🔊 ਸੁਣੋ</button>
+</div>
+
+<div class="card">
+<h2>📚 Spanish ਸ਼ਬਦ</h2>
+<p>Hola — ਹੈਲੋ</p>
+<p>Agua — ਪਾਣੀ</p>
+<p>Pan — ਰੋਟੀ</p>
+<p>Casa — ਘਰ</p>
+<p>Trabajo — ਕੰਮ</p>
+<p>Comer — ਖਾਣਾ</p>
+<p>Beber — ਪੀਣਾ</p>
+<p>Venir — ਆਉਣਾ</p>
+<p>Ir — ਜਾਣਾ</p>
+<p>Gracias — ਧੰਨਵਾਦ</p>
+<button onclick="speak('Hola, agua, pan, casa, trabajo, comer, beber, venir, ir, gracias')">🔊 ਸਾਰੇ ਸ਼ਬਦ ਸੁਣੋ</button>
+</div>
+
+<div class="card">
+<h2>🗣️ ਰੋਜ਼ਾਨਾ ਵਾਕ</h2>
+<p><b>Estoy bien.</b> — ਮੈਂ ਠੀਕ ਹਾਂ।</p>
+<p><b>Voy a casa.</b> — ਮੈਂ ਘਰ ਜਾਂਦਾ ਹਾਂ।</p>
+<p><b>Trabajo en obra.</b> — ਮੈਂ ਉਸਾਰੀ ਦੇ ਕੰਮ ਵਿੱਚ ਕੰਮ ਕਰਦਾ ਹਾਂ।</p>
+<button onclick="speak('Estoy bien. Voy a casa. Trabajo en obra.')">🔊 ਵਾਕ ਸੁਣੋ</button>
+</div>
+
+<div class="card">
+<h2>⚙️ Spanish Verbs</h2>
+<p><b>Ser</b> — ਹੋਣਾ: soy, eres, es, somos, sois, son</p>
+<p><b>Estar</b> — ਹਾਲਤ/ਥਾਂ ਹੋਣਾ: estoy, estás, está, estamos, estáis, están</p>
+<p><b>Ir</b> — ਜਾਣਾ: voy, vas, va, vamos, vais, van</p>
+<p><b>Comer</b> — ਖਾਣਾ: como, comes, come, comemos, coméis, comen</p>
+<p><b>Trabajar</b> — ਕੰਮ ਕਰਨਾ: trabajo, trabajas, trabaja, trabajamos, trabajáis, trabajan</p>
+<button onclick="speak('Ser, estar, ir, comer, trabajar')">🔊 Verbs ਸੁਣੋ</button>
+</div>
+
+<div class="card">
+<h2>🔊 ਆਵਾਜ਼ ਹੌਲੀ ਕਰੋ</h2>
+<label>Speed:</label>
+<input id="speed" type="range" min="0.3" max="1" step="0.1" value="0.6">
+<button onclick="speak('Hola, estoy aprendiendo español')">ਟੈਸਟ ਕਰੋ</button>
+</div>
+
+<script>
+function speak(t){
+ if(!window.speechSynthesis){alert("ਆਵਾਜ਼ ਉਪਲਬਧ ਨਹੀਂ");return}
+ speechSynthesis.cancel();
+ let u=new SpeechSynthesisUtterance(t);
+ u.lang="es-ES";
+ u.rate=Number(document.getElementById("speed").value);
+ speechSynthesis.speak(u);
+}
+"ABCDEFGHIJKLMNÑOPQRSTUVWXYZ".split("").forEach(l=>{
+ let b=document.createElement("button");
+ b.textContent=l;
+ b.onclick=()=>speak(l);
+ document.getElementById("abc").appendChild(b);
+});
+function under100(n){
+ const a=["cero","uno","dos","tres","cuatro","cinco","seis","siete","ocho","nueve","diez","once","doce","trece","catorce","quince","dieciséis","diecisiete","dieciocho","diecinueve","veinte"];
+ const t=["","","","treinta","cuarenta","cincuenta","sesenta","setenta","ochenta","noventa"];
+ if(n<=20)return a[n];
+ if(n<30)return "veinti"+({1:"uno",2:"dós",3:"trés",4:"cuatro",5:"cinco",6:"séis",7:"siete",8:"ocho",9:"nueve"}[n-20]||"");
+ return t[Math.floor(n/10)]+(n%10?" y "+a[n%10]:"");
+}
+function numberWords(n){
+ if(!Number.isInteger(n)||n<1||n>1000)return "1–1000 ਨੰਬਰ ਦਿਓ";
+ if(n===1000)return "mil";
+ if(n<100)return under100(n);
+ if(n===100)return "cien";
+ const h=["","ciento","doscientos","trescientos","cuatrocientos","quinientos","seiscientos","setecientos","ochocientos","novecientos"];
+ return h[Math.floor(n/100)]+(n%100?" "+under100(n%100):"");
+}
+function showNum(){
+ document.getElementById("answer").textContent=
+ numberWords(Number(document.getElementById("num").value));
+}
+</script>
+</body>
+</html>
+
+
