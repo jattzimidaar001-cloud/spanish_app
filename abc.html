@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pa">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spanish ABC</title>
+<style>
+body{font-family:sans-serif;background:#eef3ff;padding:15px;text-align:center}
+.card{background:white;padding:20px;border-radius:16px;max-width:500px;margin:auto}
+.letter{font-size:65px;color:#2459c4}
+button,select{padding:12px;margin:8px;width:90%;font-size:17px}
+.item{padding:8px;border-bottom:1px solid #ddd}
+</style>
+</head>
+<body>
+<div class="card">
+<h1>🇪🇸 Spanish ABC</h1>
+<select id="lang">
+<option value="pa">ਪੰਜਾਬੀ</option>
+<option value="hi">हिन्दी</option>
+<option value="en">English</option>
+<option value="ur">اردو</option>
+</select>
+<div class="letter" id="letter">A</div>
+<h2 id="pronounce">a — ਆ</h2>
+<p id="example">Amigo — ਦੋਸਤ</p>
+<button id="listen">🔊 ਅੱਖਰ ਸੁਣੋ</button>
+<button id="next">ਅਗਲਾ ਅੱਖਰ ➜</button>
+<p id="count">1 / 27</p>
+<div id="list"></div>
+<a href="index.html">🏠 Home</a>
+</div>
+<script>
+const abc=[
+["A","a","ਆ","Amigo","ਦੋਸਤ"],["B","be","ਬੇ","Bueno","ਚੰਗਾ"],
+["C","ce","ਥੇ/ਸੇ","Casa","ਘਰ"],["D","de","ਦੇ","Día","ਦਿਨ"],
+["E","e","ਏ","Elefante","ਹਾਥੀ"],["F","efe","ਏਫੇ","Familia","ਪਰਿਵਾਰ"],
+["G","ge","ਖੇ/ਹੇ","Gato","ਬਿੱਲੀ"],["H","hache","ਆਚੇ","Hola","ਹੈਲੋ"],
+["I","i","ਈ","Iglesia","ਚਰਚ"],["J","jota","ਖੋਤਾ","Jardín","ਬਾਗ਼"],
+["K","ka","ਕਾ","Kilo","ਕਿਲੋ"],["L","ele","ਏਲੇ","Libro","ਕਿਤਾਬ"],
+["M","eme","ਏਮੇ","Madre","ਮਾਂ"],["N","ene","ਏਨੇ","Noche","ਰਾਤ"],
+["Ñ","eñe","ਏਨਯੇ","Niño","ਬੱਚਾ"],["O","o","ਓ","Ojo","ਅੱਖ"],
+["P","pe","ਪੇ","Padre","ਪਿਤਾ"],["Q","cu","ਕੂ","Queso","ਪਨੀਰ"],
+["R","erre","ਏਰੇ","Rojo","ਲਾਲ"],["S","ese","ਏਸੇ","Sol","ਸੂਰਜ"],
+["T","te","ਤੇ","Trabajo","ਕੰਮ"],["U","u","ਊ","Uno","ਇੱਕ"],
+["V","uve","ਊਵੇ","Vaca","ਗਾਂ"],["W","uve doble","ਊਵੇ ਦੋਬਲੇ","Wifi","ਵਾਈ-ਫਾਈ"],
+["X","equis","ਏਕਿਸ","Xilófono","ਸਾਜ਼"],["Y","ye","ਯੇ","Yo","ਮੈਂ"],
+["Z","zeta","ਥੇ/ਸੇ","Zapato","ਜੁੱਤੀ"]];
+let i=0;
+function show(){
+let a=abc[i],l=document.getElementById("lang").value;
+document.documentElement.dir=l==="ur"?"rtl":"ltr";
+document.getElementById("letter").textContent=a[0];
+document.getElementById("pronounce").textContent=a[1]+" — "+a[2];
+document.getElementById("example").textContent=a[3]+" — "+a[4];
+document.getElementById("count").textContent=(i+1)+" / 27";
+document.getElementById("next").textContent={pa:"ਅਗਲਾ ਅੱਖਰ ➜",hi:"अगला अक्षर ➜",en:"Next letter ➜",ur:"اگلا حرف ➜"}[l];
+document.getElementById("listen").textContent={pa:"🔊 ਅੱਖਰ ਸੁਣੋ",hi:"🔊 अक्षर सुनें",en:"🔊 Hear letter",ur:"🔊 حرف سنیں"}[l];
+document.getElementById("list").innerHTML=abc.map((x,n)=>`<div class="item">${n+1}. <b>${x[0]}</b> — ${x[1]} — ${x[3]} (${x[4]})</div>`).join("");
+}
+document.getElementById("next").onclick=()=>{i=(i+1)%27;show()};
+document.getElementById("lang").onchange=show;
+document.getElementById("listen").onclick=()=>{
+speechSynthesis.cancel();
+let u=new SpeechSynthesisUtterance(abc[i][0]);
+u.lang="es-ES";u.rate=0.6;speechSynthesis.speak(u);
+};
+show();
+</script>
+</body>
+</html>

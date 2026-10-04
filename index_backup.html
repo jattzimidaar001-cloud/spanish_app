@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="pa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spanish Sikhho</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f2f5ff;
+      text-align: center;
+      padding: 24px;
+      color: #182448;
+    }
+    .card {
+      background: white;
+      padding: 24px;
+      border-radius: 20px;
+      max-width: 420px;
+      margin: 25px auto;
+    }
+    button {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      margin: 12px 0;
+      border: 0;
+      border-radius: 12px;
+      background: #2449c6;
+      color: white;
+      font-size: 17px;
+    }
+    #result { font-size: 20px; }
+  </style>
+</head>
+<body>
+  <h1>🇪🇸 Spanish Sikhho</h1>
+  <p>Spanish ਸਿੱਖੋ — ਪੰਜਾਬੀ ਵਿੱਚ</p>
+
+  <div class="card">
+    <h2>ਅੱਜ ਦਾ ਪਹਿਲਾ ਸ਼ਬਦ</h2>
+    <h1>Hola</h1>
+    <p>ਪੰਜਾਬੀ ਅਰਥ: ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ / ਹੈਲੋ</p>
+
+    <button onclick="speakSpanish()">
+      🔊 Spanish ਸੁਣੋ
+    </button>
+
+    <button onclick="showMeaning()">
+      ਅਰਥ ਦਿਖਾਓ
+    </button>
+
+    <p id="result"></p>
+  </div>
+
+  <script>
+    function speakSpanish() {
+      if (!("speechSynthesis" in window)) {
+        document.getElementById("result").textContent =
+          "ਇਸ browser ਵਿੱਚ speech ਉਪਲਬਧ ਨਹੀਂ ਹੈ।";
+        return;
+      }
+
+      speechSynthesis.cancel();
+
+      const voice = new SpeechSynthesisUtterance("Hola");
+      voice.lang = "es-ES";
+      voice.rate = 0.7;
+
+      speechSynthesis.speak(voice);
+    }
+
+    function showMeaning() {
+      document.getElementById("result").textContent =
+        "Hola = ਹੈਲੋ / ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ";
+    }
+  </script>
+<a href="abc.html"><button>Spanish ABC</button></a>
+<a href="class.html"><button>Learn Spanish by Class</button></a>
+</body>
+</html>
+

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Learn Spanish</title>
+</head>
+<body>
+<h1>🇪🇸 Learn Spanish by Class</h1>
+<h2>Class 1 — Spanish ABC</h2>
+<div id="abc"></div>
+<script>
+let a="ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+document.getElementById("abc").innerHTML=[...a].map(x=>`<p><b>${x}</b> — ${x==="H"?"silent":x==="Ñ"?"enye":x.toLowerCase()}</p>`).join("");
+</script>
+<a href="index.html">🏠 Home</a>
+</body>
+</html>
+
